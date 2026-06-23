@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conheça a Equipe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fefce8 0%, #fdf2f8 50%, #faf5ff 100%);
+      min-height: 100vh;
+      padding: 4rem 1.5rem;
+    }
+
+    /* Floating decorations */
+    .deco { position: fixed; pointer-events: none; z-index: 0; opacity: .15; }
+    .deco-1 { top: 30px;  left: 30px;  font-size: 3rem; animation: bounce 2s infinite; }
+    .deco-2 { top: 60px;  right: 60px; font-size: 2.5rem; animation: pulse-deco 2.5s infinite; }
+    .deco-3 { bottom: 60px; left: 20%; font-size: 2.5rem; animation: bounce 2s infinite .6s; }
+    .deco-4 { bottom: 100px; right: 25%; font-size: 2.5rem; animation: pulse-deco 2.5s infinite 1s; }
+
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    @keyframes pulse-deco {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.18); }
+    }
+    @keyframes sparkle-pop {
+      0%,100% { opacity: 0; transform: scale(.5) rotate(-20deg); }
+      50%     { opacity: 1; transform: scale(1.1) rotate(10deg); }
+    }
+
+    /* Section wrapper */
+    .team-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Title block */
+    .section-title {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .team-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(8px);
+      padding: .55rem 1.4rem;
+      border-radius: 9999px;
+      border: 2px solid #fbcfe8;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
+      font-size: .95rem;
+      font-weight: 700;
+      color: #7e22ce;
+      margin-bottom: 1.1rem;
+    }
+    .section-title h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      background: linear-gradient(90deg, #ec4899, #9333ea, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .75rem;
+      line-height: 1.2;
+    }
+    .section-title p {
+      font-size: 1.15rem;
+      color: #7e22ce;
+      font-weight: 600;
+    }
+
+    /* Grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    /* Card */
+    .member-card {
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(8px);
+      border-radius: 1.75rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.10);
+      transition: transform .3s, box-shadow .3s;
+      position: relative;
+    }
+    .member-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 24px 56px rgba(168,85,247,.2);
+    }
+
+    /* Per-member border colours */
+    .m1 { border: 4px solid #d8b4fe; }
+    .m2 { border: 4px solid #bfdbfe; }
+    .m3 { border: 4px solid #fed7aa; }
+    .m4 { border: 4px solid #bbf7d0; }
+    .m5 { border: 4px solid #fbcfe8; }
+    .m6 { border: 4px solid #c7d2fe; }
+
+    /* Banner */
+    .member-banner { height: 6rem; position: relative; }
+    .m1 .member-banner { background: linear-gradient(90deg, #c084fc, #ec4899); }
+    .m2 .member-banner { background: linear-gradient(90deg, #60a5fa, #06b6d4); }
+    .m3 .member-banner { background: linear-gradient(90deg, #fb923c, #facc15); }
+    .m4 .member-banner { background: linear-gradient(90deg, #4ade80, #10b981); }
+    .m5 .member-banner { background: linear-gradient(90deg, #f472b6, #f43f5e); }
+    .m6 .member-banner { background: linear-gradient(90deg, #818cf8, #a855f7); }
+
+    .banner-sparkle {
+      position: absolute;
+      top: .75rem; right: .75rem;
+      font-size: 1.4rem;
+      opacity: 0;
+      transition: opacity .3s;
+      animation: sparkle-pop 1.6s infinite;
+    }
+    .member-card:hover .banner-sparkle { opacity: 1; }
+
+    /* Avatar */
+    .member-avatar-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: -3rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    .member-avatar {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 6px 24px rgba(0,0,0,.15);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+    }
+    .m1 .member-avatar { background: linear-gradient(135deg, #c084fc, #ec4899); }
+    .m2 .member-avatar { background: linear-gradient(135deg, #60a5fa, #06b6d4); }
+    .m3 .member-avatar { background: linear-gradient(135deg, #fb923c, #facc15); }
+    .m4 .member-avatar { background: linear-gradient(135deg, #4ade80, #10b981); }
+    .m5 .member-avatar { background: linear-gradient(135deg, #f472b6, #f43f5e); }
+    .m6 .member-avatar { background: linear-gradient(135deg, #818cf8, #a855f7); }
+
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Body */
+    .member-body {
+      padding: 0 1.75rem 2rem;
+      text-align: center;
+    }
+    .member-name {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #4c1d95;
+      margin-bottom: .35rem;
+    }
+    .member-role {
+      display: inline-block;
+      padding: .3rem .95rem;
+      border-radius: 9999px;
+      font-size: .82rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+    .m1 .member-role { background: linear-gradient(90deg, #c084fc, #ec4899); }
+    .m2 .member-role { background: linear-gradient(90deg, #60a5fa, #06b6d4); }
+    .m3 .member-role { background: linear-gradient(90deg, #fb923c, #facc15); }
+    .m4 .member-role { background: linear-gradient(90deg, #4ade80, #10b981); }
+    .m5 .member-role { background: linear-gradient(90deg, #f472b6, #f43f5e); }
+    .m6 .member-role { background: linear-gradient(90deg, #818cf8, #a855f7); }
+
+    .member-desc {
+      font-size: .9rem;
+      color: #7c3aed;
+      line-height: 1.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <span class="deco deco-1">🌟</span>
+  <span class="deco deco-2">✨</span>
+  <span class="deco deco-3">🎨</span>
+  <span class="deco deco-4">💫</span>
+
+  <section class="team-section">
+
+    <div class="section-title">
+      <div class="team-badge">👥 Nosso Time</div>
+      <h2>Conheça a Equipe! 🌟</h2>
+      <p>As mentes criativas por trás deste projeto incrível</p>
+    </div>
+
+    <div class="team-grid">
+
+      <div class="member-card m1">
+        <div class="member-banner"><span class="banner-sparkle">✨</span></div>
+        <div class="member-avatar-wrap">
+          <div class="member-avatar">
+            <img src="img/IMG-Xande.jpg" alt="">
+          </div>
+        </div>
+        <div class="member-body">
+          <div class="member-name">Membro 1</div>
+          <div class="member-role">👑 Líder do Projeto</div>
+          <p class="member-desc">Responsável pela coordenação da equipe e pelo planejamento das funcionalidades do site.</p>
+        </div>
+      </div>
+
+      <div class="member-card m2">
+        <div class="member-banner"><span class="banner-sparkle">✨</span></div>
+        <div class="member-avatar-wrap">
+          <div class="member-avatar">
+            <img src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=member2&backgroundColor=ffd5dc"
+                 alt="Membro 2"
+                 onerror="this.parentElement.innerHTML='💻'" />
+          </div>
+        </div>
+        <div class="member-body">
+          <div class="member-name">Membro 2</div>
+          <div class="member-role">💻 Desenvolvedor Front-end</div>
+          <p class="member-desc">Especialista em criar interfaces bonitas e interativas com foco na experiência do usuário.</p>
+        </div>
+      </div>
+
+      <div class="member-card m3">
+        <div class="member-banner"><span class="banner-sparkle">✨</span></div>
+        <div class="member-avatar-wrap">
+          <div class="member-avatar">
+            <img src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=member3&backgroundColor=c0aede"
+                 alt="Membro 3"
+                 onerror="this.parentElement.innerHTML='🎨'" />
+          </div>
+        </div>
+        <div class="member-body">
+          <div class="member-name">Membro 3</div>
+          <div class="member-role">🎨 Designer</div>
+          <p class="member-desc">Criativo nato, responsável pela identidade visual e pelo estilo cartoon do projeto.</p>
+        </div>
+      </div>
+
+      <div class="member-card m4">
+        <div class="member-banner"><span class="banner-sparkle">✨</span></div>
+        <div class="member-avatar-wrap">
+          <div class="member-avatar">
+            <img src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=member4&backgroundColor=d1f4d4"
+                 alt="Membro 4"
+                 onerror="this.parentElement.innerHTML='⚙️'" />
+          </div>
+        </div>
+        <div class="member-body">
+          <div class="member-name">Membro 4</div>
+          <div class="member-role">⚙️ Desenvolvedor Back-end</div>
+          <p class="member-desc">Garante que toda a lógica dos jogos funcione perfeitamente nos bastidores.</p>
+        </div>
+      </div>
+
+      <div class="member-card m5">
+        <div class="member-banner"><span class="banner-sparkle">✨</span></div>
+        <div class="member-avatar-wrap">
+          <div class="member-avatar">
+            <img src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=member5&backgroundColor=ffdfbf"
+                 alt="Membro 5"
+                 onerror="this.parentElement.innerHTML='🔍'" />
+          </div>
+        </div>
+        <div class="member-body">
+          <div class="member-name">Membro 5</div>
+          <div class="member-role">🔍 Tester &amp; QA</div>
+          <p class="member-desc">Garante que tudo funcione sem bugs, testando cada detalhe com cuidado e dedicação.</p>
+        </div>
+      </div>
+
+      <div class="member-card m6">
+        <div class="member-banner"><span class="banner-sparkle">✨</span></div>
+        <div class="member-avatar-wrap">
+          <div class="member-avatar">
+            <img src="https://api.dicebear.com/9.x/fun-emoji/svg?seed=member6&backgroundColor=fde68a"
+                 alt="Membro 6"
+                 onerror="this.parentElement.innerHTML='📝'" />
+          </div>
+        </div>
+        <div class="member-body">
+          <div class="member-name">Membro 6</div>
+          <div class="member-role">📝 Documentação</div>
+          <p class="member-desc">Responsável por registrar todo o processo de desenvolvimento e criar os tutoriais do site.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
